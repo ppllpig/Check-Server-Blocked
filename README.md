@@ -1,11 +1,12 @@
 # 简介
-通过ping简单的判定监控目标至中国网络连通性，[演示站点](http://116.196.111.178/)
+通过ping简单的判定监控目标至中国网络连通性，[演示站点](http://116.196.111.178/)  
+Ps：点击服务器一栏的地址，可以查看路由
 
 # 要求
 - 位于中国的云服务器
 - 一定的Linux、HTML知识
 - Nginx / Caddy
-- CentO / Debian / Ubuntu 系统
+- CentOS / Debian / Ubuntu 系统
 
 # 应用
 以Nginx为例，先新建一个站点
@@ -24,7 +25,7 @@ git clone https://github.com/qinghuas/Check-Server-Blocked.git
 mv Check-Server-Blocked/* ./
 rm -rf Check-Server-Blocked
 ```
-然后编辑 `check.sh`  
+然后编辑 `/root/csb/check.sh`  
 
 - 绝对路径：假设站点是 `csb.domain.com` ，目录是 `/home/wwwroot/csb.domain.com` ，则绝对路径是 `/home/wwwroot/csb.domain.com` + `/index.html`
 ```
@@ -84,7 +85,9 @@ SHOW_FILE_PATH='/home/wwwroot/csb.domain.com/route/';
 #省略输出
 OMITTED='true'; #省略输出没有内容的路由,true/false
 ```
-然后设置定时任务： `crontab -e`，然后按 `i` 键进行编辑
+然后设置定时任务：
+
+`crontab -e`，然后按 `i` 键进行编辑
 
 以下设置是十分钟执行一次，如若想5分钟执行一次，将10更改为5即可
 ```
@@ -95,6 +98,7 @@ OMITTED='true'; #省略输出没有内容的路由,true/false
 0 * * * * /bin/bash /root/csb/traceroute.sh
 ```
 然后按 `ESC` ，输入 `:wq` 保存
+
 # 建议
 - ping频率：数值越大越准确，但是耗时越长。如若耗时超过定时任务的频率，会导致网页内容重复，建议根据检测目标数量适当调整。
 - 中国服务器建站：一般http访问会被服务商屏蔽，推荐启用https，可以绕过。
