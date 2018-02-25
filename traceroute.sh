@@ -105,7 +105,7 @@ ADD_THE_TOP(){
 #添加内容
 ADD_CONTENT(){
 	echo "Loading Data : ${SERVER_ADDRESS} ..."
-	ssr tr ${SERVER_ADDRESS} > ${SHOW_FILE_PATH}${SERVER_ADDRESS}.tmp
+	besttrace -q 1 ${SERVER_ADDRESS} > ${SHOW_FILE_PATH}${SERVER_ADDRESS}.tmp
 	#删除文件第一行,最后一行,和可能出现的IP地址
 	sed -i '1d' ${SHOW_FILE_PATH}${SERVER_ADDRESS}.tmp
 	sed -i '$d' ${SHOW_FILE_PATH}${SERVER_ADDRESS}.tmp
