@@ -1,8 +1,9 @@
 # 简介
 通过ping简单的判定监控目标至中国网络连通性，[演示站点](http://116.196.111.178/)
 
-# 环境
+# 要求
 - 位于中国的云服务器
+- 一定的Linux、HTML知识
 - Nginx / Caddy
 - CentO / Debian / Ubuntu 系统
 
@@ -11,7 +12,7 @@
 ```
 lnmp vhost add
 ```
-假设站点是 `csb.domain.com` ，目录 `/home/wwwroot/csb.domain.com` 则
+假设站点是 `csb.domain.com` ，目录是 `/home/wwwroot/csb.domain.com` 则
 ```
 mkdir /home/wwwroot/csb.domain.com/route
 ```
@@ -41,12 +42,14 @@ YOUR_DOMAIN_LINK='https://csb.domain.com';
 #网站标题
 WWW_TITLE='Check Server Blocked';
 ```
-- ping频率：数值越大越准确，但是耗时越长。如若耗时超过定时任务的频率，会导致网页内容重复。建议 `3-5`
+- ping频率：数值越大越准确，但是耗时越长。
+
+如若执行完成一次的耗时超过定时任务的频率，会导致网页内容重复。建议 `3-5`
 ```
 #ping频率
 PING_FREQUENCY='3';
 ```
-- 监测目标：多个目标用空格分隔
+- 监测目标：多个目标用空格分隔，例如 `www.bing.com www.google.com` 
 ```
 #监测目标
 MONITORING_OBJECTIVES='';
@@ -72,16 +75,16 @@ UNLOCK_NUMBER='0';
 - 展示路径：假设站点是 `csb.domain.com` ，目录是 `/home/wwwroot/csb.domain.com` ，则展示路径是 `/home/wwwroot/csb.domain.com` + `/route/`
 ```
 #展示路径
-SHOW_FILE_PATH='/route/';
+SHOW_FILE_PATH='/home/wwwroot/csb.domain.com/route/';
 ```
 - 域名链接、监测目标：见上
 
-- 省略输出：是否省略输出没有内容的路由，设为true则省略
+- 省略输出：是否省略输出没有内容的路由，设为 `true` 则省略
 ```
 #省略输出
 OMITTED='true'; #省略输出没有内容的路由,true/false
 ```
-然后设置定时任务： `crontab -e`
+然后设置定时任务： `crontab -e`，然后按 `i` 键进行编辑
 
 以下设置是十分钟执行一次，如若想5分钟执行一次，将10更改为5即可
 ```
@@ -91,7 +94,7 @@ OMITTED='true'; #省略输出没有内容的路由,true/false
 ```
 0 * * * * /bin/bash /root/csb/traceroute.sh
 ```
-然后`ESC`，`:wq`，保存
+然后按 `ESC` ，输入 `:wq` 保存
 # 建议
 - ping频率：数值越大越准确，但是耗时越长。如若耗时超过定时任务的频率，会导致网页内容重复，建议根据检测目标数量适当调整。
 - 中国服务器建站：一般http访问会被服务商屏蔽，推荐启用https，可以绕过。
