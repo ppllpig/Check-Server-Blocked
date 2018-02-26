@@ -70,6 +70,7 @@ ADD_THE_TOP(){
 		  
 		  <br/>
 		  
+		  <div class=\"mdui-table-fluid\">
 		  <table class=\"mdui-table mdui-table-hoverable\">
 			<thead>
 			  <tr>
@@ -138,6 +139,7 @@ ADD_CONTENT(){
 ADD_THE_FOOTER(){
 	echo "			</tbody>
 		  </table>
+		  </div>
 		</div>
 	  </div>
 	<br/>
